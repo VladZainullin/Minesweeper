@@ -2,7 +2,6 @@ using Minesweeper.Core.Cells;
 using Minesweeper.Core.Cells.Contents;
 using Minesweeper.Core.Cells.Coordinates;
 using Minesweeper.Core.Cells.States;
-using Minesweeper.Core.Commons.CellGenerators;
 using Minesweeper.Core.Games.Difficulties;
 
 namespace Minesweeper.Core.CellGenerators;

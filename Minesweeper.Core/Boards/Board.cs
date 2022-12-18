@@ -6,11 +6,11 @@ namespace Minesweeper.Core.Boards;
 
 public sealed class Board : IEnumerable<Cell>
 {
-    private readonly List<Cell> _cells;
+    private readonly IEnumerable<Cell> _cells;
 
     public Board(IEnumerable<Cell> cells)
     {
-        _cells = new List<Cell>(cells);
+        _cells = cells;
     }
 
     IEnumerator<Cell> IEnumerable<Cell>.GetEnumerator()

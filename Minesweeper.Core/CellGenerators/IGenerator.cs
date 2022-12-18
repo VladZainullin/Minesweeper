@@ -1,6 +1,6 @@
 using Minesweeper.Core.Cells;
 
-namespace Minesweeper.Core.Commons.CellGenerators;
+namespace Minesweeper.Core.CellGenerators;
 
 public interface IGenerator
 {
