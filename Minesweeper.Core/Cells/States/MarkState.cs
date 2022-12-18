@@ -6,6 +6,6 @@ public class MarkState : ICellState
 {
     public string GetContent(IHasValue hasValue)
     {
-        return "F";
+        return "^";
     }
 }
