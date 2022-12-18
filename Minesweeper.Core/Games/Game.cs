@@ -47,7 +47,7 @@ public sealed class Game
             .All(c => !c.StateIs<OpenState>());
     }
 
-    public bool TryOpenCell(ICoordinate coordinate, ICellState state)
+    public bool TryChangeCell(ICoordinate coordinate, ICellState state)
     {
         var exists = _cells.Any(c => c.InCoordinate(coordinate));
         if (exists)

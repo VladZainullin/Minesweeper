@@ -29,7 +29,7 @@ internal static class Program
 
             var coordinate = new Coordinate(x, y);
 
-            game.TryOpenCell(coordinate, state);
+            game.TryChangeCell(coordinate, state);
         }
 
         if (game.Status == GameStatus.GameOver)
