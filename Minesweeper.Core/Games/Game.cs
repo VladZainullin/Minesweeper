@@ -14,7 +14,7 @@ public sealed class Game
         _cells = cells;
     }
 
-    public event EventHandler<CellOpenEventArgs>? OpenCell; 
+    public event EventHandler<CellOpenEventArgs>? ChangeCell; 
 
     public bool TryOpenCell(ICoordinate coordinate, ICellState state)
     {
@@ -44,8 +44,6 @@ public sealed class Game
 
     private void OnOpenCell(CellOpenEventArgs e)
     {
-        OpenCell?.Invoke(this, e);
+        ChangeCell?.Invoke(this, e);
     }
 }
-
-public record CellOpenEventArgs(IEnumerable<Cell> Cells);

@@ -4,7 +4,7 @@ public class ConsolePrinter
 {
     public ConsolePrinter(Game game)
     {
-        game.OpenCell += Print;
+        game.ChangeCell += Print;
     }
 
     private static void Print(object? sender, CellOpenEventArgs e)
