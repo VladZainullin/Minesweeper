@@ -19,11 +19,8 @@ public class ConsolePrinter
         var height = GetHeight();
 
         Console.Write("   | ");
-        
-        for (var i = 0; i < weight; i++)
-        {
-            Console.Write($"{i} ");
-        }
+
+        for (var i = 0; i < weight; i++) Console.Write($"{i} ");
 
         Console.WriteLine();
         Console.Write("---+");
@@ -32,7 +29,7 @@ public class ConsolePrinter
         for (var x = 0; x < weight; x++)
         {
             Console.Write($" {x} | ");
-            
+
             for (var y = 0; y < height; y++)
             {
                 var cell = GetCell(x, y);
@@ -43,12 +40,12 @@ public class ConsolePrinter
             Console.WriteLine();
         }
     }
-    
+
     private int GetWeight()
     {
         return GetGroupCount(c => c.X);
     }
-    
+
     private int GetHeight()
     {
         return GetGroupCount(c => c.Y);
