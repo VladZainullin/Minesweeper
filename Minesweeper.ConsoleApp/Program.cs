@@ -3,7 +3,7 @@ using Minesweeper.Core.CellGenerators;
 using Minesweeper.Core.Cells.Coordinates;
 using Minesweeper.Core.Games;
 using Minesweeper.Core.Games.Difficulties;
-using Minesweeper.Core.Printers;
+using Minesweeper.Core.Games.Printers;
 
 namespace Minesweeper.ConsoleApp;
 

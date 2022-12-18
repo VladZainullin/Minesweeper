@@ -1,6 +1,6 @@
 using Minesweeper.Core.Boards;
 
-namespace Minesweeper.Core.Printers;
+namespace Minesweeper.Core.Games.Printers;
 
 public class ConsolePrinter : IPrintable
 {

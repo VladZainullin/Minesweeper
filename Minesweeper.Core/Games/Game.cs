@@ -1,7 +1,7 @@
 using Minesweeper.Core.Boards;
 using Minesweeper.Core.Cells.Coordinates;
 using Minesweeper.Core.Cells.States;
-using Minesweeper.Core.Printers;
+using Minesweeper.Core.Games.Printers;
 
 namespace Minesweeper.Core.Games;
 

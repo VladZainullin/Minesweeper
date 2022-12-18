@@ -1,4 +1,4 @@
-namespace Minesweeper.Core.Printers;
+namespace Minesweeper.Core.Games.Printers;
 
 public interface IPrintable
 {
