@@ -10,12 +10,13 @@ public sealed class CellGenerator : IGenerator
 {
     private static readonly Random Random = new();
 
-    private readonly ICollection<Cell> _cells = new List<Cell>(100);
+    private readonly ICollection<Cell> _cells;
     private readonly IDifficulty _difficulty;
 
     public CellGenerator(IDifficulty difficulty)
     {
         _difficulty = difficulty;
+        _cells = new List<Cell>(difficulty.Height * difficulty.Weight);
     }
 
     public IEnumerable<Cell> Generate()
