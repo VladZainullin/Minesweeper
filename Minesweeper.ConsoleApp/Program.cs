@@ -1,5 +1,4 @@
-﻿using Minesweeper.Core.Boards;
-using Minesweeper.Core.CellGenerators;
+﻿using Minesweeper.Core.CellGenerators;
 using Minesweeper.Core.Cells.Coordinates;
 using Minesweeper.Core.Cells.States;
 using Minesweeper.Core.Games;
@@ -18,9 +17,8 @@ internal static class Program
         var generator = new CellGenerator(selectableDifficulty);
 
         var cells = generator.Generate();
-        var board = new Board(cells);
 
-        var game = new Game(board);
+        var game = new Game(cells);
         _ = new ConsolePrinter(game);
 
         while (game.Status == GameStatus.Progress)
