@@ -36,7 +36,7 @@ internal static class Program
         
         game.Print();
 
-        Console.WriteLine("You ara win!");
+        Console.WriteLine("You are win!");
     }
 
     private static IReadOnlyList<IDifficulty> GetDifficulties()
