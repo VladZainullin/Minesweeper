@@ -1,6 +1,7 @@
 ﻿using Minesweeper.Core.Boards;
 using Minesweeper.Core.CellGenerators;
 using Minesweeper.Core.Cells.Coordinates;
+using Minesweeper.Core.Cells.States;
 using Minesweeper.Core.Games;
 using Minesweeper.Core.Games.Difficulties;
 using Minesweeper.Core.Games.Printers;
@@ -26,12 +27,11 @@ internal static class Program
         {
             game.Print();
 
-            var x = Input("Input X: ");
-            var y = Input("Input Y: ");
+            var (x, y, state) = InputData();
 
             var coordinate = new Coordinate(x, y);
 
-            if (game.TryOpenCell(coordinate)) continue;
+            game.TryOpenCell(coordinate, state);
         }
     }
 
@@ -75,5 +75,44 @@ internal static class Program
 
             Console.WriteLine(errorMessage);
         }
+    }
+
+    private static (int x, int y, ICellState state) InputData()
+    {
+        while (true)
+        {
+            var tuple = Console.ReadLine();
+
+            var parse = int.TryParse(tuple?.Split()[0], out var x);
+            if (!parse)
+            {
+                continue;
+            }
+
+            var tryParse = int.TryParse(tuple?.Split()[1], out var y);
+            if (!tryParse)
+            {
+                continue;
+            }
+
+            var stateShortTitle = tuple?.Split().Last();
+            if (stateShortTitle == null)
+            {
+                continue;
+            }
+            var state = GetCellState(stateShortTitle);
+
+            return (x, y, state);
+        }
+    }
+
+    private static ICellState GetCellState(string shortTitle)
+    {
+        return shortTitle switch
+        {
+            "o" => new OpenState(),
+            "m" => new MarkState(),
+            _ => throw new ArgumentOutOfRangeException(nameof(shortTitle), shortTitle, null)
+        };
     }
 }

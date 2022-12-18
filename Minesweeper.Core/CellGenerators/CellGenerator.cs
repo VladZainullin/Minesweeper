@@ -31,7 +31,7 @@ public sealed class CellGenerator : IGenerator
         var bombContent = new BombContent();
         var closeState = new CloseState();
 
-        for (var i = 0; i < _difficulty.CountOfBomb - 1; i++)
+        for (var i = 0; i < _difficulty.CountOfBomb; i++)
             while (true)
             {
                 var coordinate = GetRandomCoordinate(_difficulty.Weight, _difficulty.Height);
@@ -52,7 +52,7 @@ public sealed class CellGenerator : IGenerator
         var spaceContent = new SpaceContent();
         var closeState = new CloseState();
 
-        for (var i = 0; i < _difficulty.Weight * _difficulty.Height - _difficulty.CountOfBomb - 1; i++)
+        for (var i = 0; i < _difficulty.Weight * _difficulty.Height - _difficulty.CountOfBomb; i++)
             while (true)
             {
                 var coordinate = GetRandomCoordinate(_difficulty.Weight, _difficulty.Height);

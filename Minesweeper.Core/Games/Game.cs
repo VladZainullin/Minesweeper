@@ -16,13 +16,13 @@ public sealed class Game
         _cells = cells;
     }
 
-    public bool TryOpenCell(ICoordinate coordinate)
+    public bool TryOpenCell(ICoordinate coordinate, ICellState state)
     {
         var exists = _cells.Any(c => c.InCoordinate(coordinate));
         if (exists)
         {
             var cell = _cells.Single(c => c.InCoordinate(coordinate));
-            cell.TransitionTo(new OpenState());
+            cell.TransitionTo(state);
         }
 
         return exists;
