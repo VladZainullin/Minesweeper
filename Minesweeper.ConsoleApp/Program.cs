@@ -81,6 +81,7 @@ internal static class Program
     {
         while (true)
         {
+            Console.Write("Input x, y, open/mark (o/m): ");
             var tuple = Console.ReadLine();
 
             var parse = int.TryParse(tuple?.Split()[0], out var x);
