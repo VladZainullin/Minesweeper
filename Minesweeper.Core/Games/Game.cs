@@ -31,11 +31,15 @@ public sealed class Game
 
     public bool InProgress()
     {
-        var r = _cells
+        var allBombMark = _cells
             .Where(c => c.ContentIs<BombContent>())
             .All(c => c.StateIs<MarkState>());
 
-        return !r;
+        var allBombNotOpen = _cells
+            .Where(c => c.ContentIs<BombContent>())
+            .All(c => !c.StateIs<OpenState>());
+
+        return !allBombMark && allBombNotOpen;
     }
 
     public void Print()
