@@ -30,13 +30,26 @@ public sealed class Board : IEnumerable<Cell>
         var weight = GetWeight();
         var height = GetHeight();
 
+        builder.Append("   | ");
+        
+        for (var i = 0; i < weight; i++)
+        {
+            builder.Append($"{i} ");
+        }
+
+        builder.AppendLine();
+        builder.Append("---+");
+        builder.AppendLine(new string('-', weight * 2));
+
         for (var x = 0; x < weight; x++)
         {
+            builder.Append($" {x} | ");
+            
             for (var y = 0; y < height; y++)
             {
                 var cell = GetCell(x, y);
 
-                builder.Append(cell);
+                builder.Append($"{cell} ");
             }
 
             builder.AppendLine();
