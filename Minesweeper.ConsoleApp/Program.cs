@@ -19,7 +19,7 @@ internal static class Program
 
         var cells = generator.Generate();
         var board = new Board(cells);
-        
+
         var game = new Game(board);
         _ = new ConsolePrinter(game);
 
@@ -85,22 +85,13 @@ internal static class Program
             var tuple = Console.ReadLine();
 
             var parse = int.TryParse(tuple?.Split()[0], out var x);
-            if (!parse)
-            {
-                continue;
-            }
+            if (!parse) continue;
 
             var tryParse = int.TryParse(tuple?.Split()[1], out var y);
-            if (!tryParse)
-            {
-                continue;
-            }
+            if (!tryParse) continue;
 
             var stateShortTitle = tuple?.Split().Last();
-            if (stateShortTitle != "o" && stateShortTitle != "m")
-            {
-                continue;
-            }
+            if (stateShortTitle != "o" && stateShortTitle != "m") continue;
             var state = GetCellState(stateShortTitle);
 
             return (x, y, state);
@@ -112,7 +103,7 @@ internal static class Program
         return shortTitle switch
         {
             "o" => new OpenState(),
-            "m" => new MarkState(),
+            "m" => new MarkState()
         };
     }
 }

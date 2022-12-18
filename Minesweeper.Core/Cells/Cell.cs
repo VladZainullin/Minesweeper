@@ -33,7 +33,7 @@ public sealed class Cell
     {
         return _content is T;
     }
-    
+
     public bool StateIs<T>() where T : ICellState
     {
         return _state is T;

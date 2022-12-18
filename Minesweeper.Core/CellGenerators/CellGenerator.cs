@@ -22,7 +22,7 @@ public sealed class CellGenerator : IGenerator
     public IEnumerable<Cell> Generate()
     {
         GenerateCells(_difficulty.CountOfBomb, CreateBombCellCell);
-        GenerateCells(_difficulty.Weight*_difficulty.Height - _difficulty.CountOfBomb, CreateNotBombCell);
+        GenerateCells(_difficulty.Weight * _difficulty.Height - _difficulty.CountOfBomb, CreateNotBombCell);
 
         return _cells;
     }
@@ -30,7 +30,7 @@ public sealed class CellGenerator : IGenerator
     private void GenerateCells(int count, Func<ICoordinate, ICellState, Cell> createCell)
     {
         var state = new CloseState();
-        
+
         for (var i = 0; i < count; i++)
             while (true)
             {
@@ -50,17 +50,17 @@ public sealed class CellGenerator : IGenerator
     private static Cell CreateBombCellCell(ICoordinate coordinate, ICellState state)
     {
         var bombContent = new BombContent();
-        
+
         return new Cell(coordinate, state, bombContent);
     }
-    
+
     private Cell CreateNotBombCell(ICoordinate coordinate, ICellState state)
     {
         var countOfBombAround = GetCountOfBombAround(coordinate);
         IHasValue content = countOfBombAround != 0
             ? new NumberContent(countOfBombAround)
             : new SpaceContent();
-        
+
         return new Cell(coordinate, state, content);
     }
 

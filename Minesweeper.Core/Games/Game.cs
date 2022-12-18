@@ -14,7 +14,7 @@ public sealed class Game
         _cells = cells;
     }
 
-    public event EventHandler<CellOpenEventArgs>? ChangeCell; 
+    public event EventHandler<CellOpenEventArgs>? ChangeCell;
 
     public bool TryOpenCell(ICoordinate coordinate, ICellState state)
     {
