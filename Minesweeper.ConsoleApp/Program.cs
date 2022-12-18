@@ -12,7 +12,7 @@ internal static class Program
     private static void Main()
     {
         var difficulties = GetDifficulties();
-        var selectableDifficulty = SelectDifficulty(difficulties);
+        var selectableDifficulty = new NormalDifficulty();
 
         var generator = new CellGenerator(selectableDifficulty);
 

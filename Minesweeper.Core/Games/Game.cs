@@ -49,9 +49,55 @@ public sealed class Game
 
     public void ChangeCellState(ICoordinate coordinate, ICellState state)
     {
-        var cell = _cells.Single(c => c.InCoordinate(coordinate));
+        var cell = GetCell(coordinate);
+
+        Open(cell);
+        
         cell.TransitionTo(state);
+        
         OnOpenCell(new CellOpenEventArgs(_cells));
+    }
+
+    private void Open(Cell cell)
+    {
+        if (cell.StateIs<OpenState>())
+            return;
+        
+        if (!cell.ContentIs<SpaceContent>())
+            return;
+
+        cell.TransitionTo(new OpenState());
+
+        var cellsAround = GetCellsAround(cell);
+
+        foreach (var c in cellsAround)
+        {
+            if (c.ContentIs<NumberContent>())
+            {
+                c.TransitionTo(new OpenState());
+                continue;
+            }
+            
+            Open(c);
+        }
+    }
+
+    private IEnumerable<Cell> GetCellsAround(Cell cell)
+    {
+        var cellsAround = _cells
+            .Where(c =>
+                Math.Abs(c.X - cell.X) <= 1
+                &&
+                Math.Abs(c.Y - cell.Y) <= 1
+                &&
+                c.StateIs<CloseState>());
+
+        return cellsAround;
+    }
+
+    private Cell GetCell(ICoordinate coordinate)
+    {
+        return _cells.Single(c => c.InCoordinate(coordinate));
     }
 
     private void OnOpenCell(CellOpenEventArgs e)
