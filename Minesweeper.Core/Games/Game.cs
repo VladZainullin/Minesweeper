@@ -47,17 +47,11 @@ public sealed class Game
             .All(c => !c.StateIs<OpenState>());
     }
 
-    public bool TryChangeCell(ICoordinate coordinate, ICellState state)
+    public void ChangeCellState(ICoordinate coordinate, ICellState state)
     {
-        var exists = _cells.Any(c => c.InCoordinate(coordinate));
-        if (exists)
-        {
-            var cell = _cells.Single(c => c.InCoordinate(coordinate));
-            cell.TransitionTo(state);
-            OnOpenCell(new CellOpenEventArgs(_cells));
-        }
-
-        return exists;
+        var cell = _cells.Single(c => c.InCoordinate(coordinate));
+        cell.TransitionTo(state);
+        OnOpenCell(new CellOpenEventArgs(_cells));
     }
 
     private void OnOpenCell(CellOpenEventArgs e)

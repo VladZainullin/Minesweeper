@@ -29,7 +29,7 @@ internal static class Program
 
             var coordinate = new Coordinate(x, y);
 
-            game.TryChangeCell(coordinate, state);
+            game.ChangeCellState(coordinate, state);
         }
 
         if (game.Status == GameStatus.GameOver)
@@ -66,13 +66,13 @@ internal static class Program
             Console.WriteLine($"{number}. {title}");
         }
 
-        var difficultyIndex = Input("Select difficulty : ");
+        var difficultyIndex = InputInt32("Select difficulty : ");
         var selectableDifficulty = difficulties[--difficultyIndex];
 
         return selectableDifficulty;
     }
 
-    private static int Input(string beforeMessage = "", string errorMessage = "Incorrect input")
+    private static int InputInt32(string beforeMessage = "", string errorMessage = "Incorrect input")
     {
         while (true)
         {
