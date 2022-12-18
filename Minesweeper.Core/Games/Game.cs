@@ -14,8 +14,6 @@ public sealed class Game
         _cells = cells;
     }
 
-    public event EventHandler<CellOpenEventArgs>? ChangeCell;
-
     public GameStatus Status
     {
         get
@@ -33,13 +31,15 @@ public sealed class Game
         }
     }
 
+    public event EventHandler<CellOpenEventArgs>? ChangeCell;
+
     private bool CheckAllBombMark()
     {
         return _cells
             .Where(c => c.ContentIs<BombContent>())
             .All(c => c.StateIs<MarkState>());
     }
-    
+
     private bool CheckAllBombClose()
     {
         return _cells
