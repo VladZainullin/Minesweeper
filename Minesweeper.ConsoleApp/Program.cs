@@ -21,7 +21,7 @@ internal static class Program
         var board = new Board(cells);
         
         var game = new Game(board);
-        var printer = new ConsolePrinter(game);
+        _ = new ConsolePrinter(game);
 
         while (game.InProgress())
         {
