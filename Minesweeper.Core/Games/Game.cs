@@ -1,4 +1,5 @@
 using Minesweeper.Core.Boards;
+using Minesweeper.Core.Cells;
 using Minesweeper.Core.Cells.Coordinates;
 using Minesweeper.Core.Cells.States;
 using Minesweeper.Core.Games.Printers;
@@ -7,13 +8,13 @@ namespace Minesweeper.Core.Games;
 
 public sealed class Game
 {
-    private readonly Board _board;
+    private readonly IEnumerable<Cell> _board;
     private readonly IPrintable _printable;
 
-    public Game(Board board, IPrintable printable)
+    public Game(IEnumerable<Cell> cells, IPrintable printable)
     {
         _printable = printable;
-        _board = board;
+        _board = cells;
     }
 
     public bool TryOpenCell(ICoordinate coordinate)
