@@ -3,7 +3,6 @@ using Minesweeper.Core.Cells.Contents;
 using Minesweeper.Core.Cells.Coordinates;
 using Minesweeper.Core.Cells.States;
 using Minesweeper.Core.Commons.CellGenerators;
-using Minesweeper.Core.Extensions;
 using Minesweeper.Core.Games.Difficulties;
 
 namespace Minesweeper.Core.CellGenerators;
@@ -33,8 +32,8 @@ public sealed class CellGenerator : IGenerator
     {
         var bombContent = new BombContent();
         var closeState = new CloseState();
-        
-        foreach (var _ in _difficulty.CountOfBomb - 1)
+
+        for (var i = 0; i < _difficulty.CountOfBomb - 1; i++)
         {
             while (true)
             {
@@ -59,8 +58,8 @@ public sealed class CellGenerator : IGenerator
     {
         var spaceContent = new SpaceContent();
         var closeState = new CloseState();
-        
-        foreach (var _ in _difficulty.Weight * _difficulty.Height - _difficulty.CountOfBomb - 1)
+
+        for (var i = 0; i < _difficulty.Weight * _difficulty.Height - _difficulty.CountOfBomb - 1; i++)
         {
             while (true)
             {
