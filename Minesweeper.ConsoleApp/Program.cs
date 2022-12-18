@@ -33,6 +33,8 @@ internal static class Program
 
             game.TryOpenCell(coordinate, state);
         }
+        
+        game.Print();
 
         Console.WriteLine("You ara win!");
     }

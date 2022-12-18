@@ -35,7 +35,7 @@ public sealed class Game
             .Where(c => c.ContentIs<BombContent>())
             .All(c => c.StateIs<MarkState>());
 
-        return r;
+        return !r;
     }
 
     public void Print()
