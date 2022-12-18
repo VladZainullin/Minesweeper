@@ -1,4 +1,3 @@
-using Minesweeper.Core.Boards;
 using Minesweeper.Core.Cells;
 using Minesweeper.Core.Cells.Coordinates;
 using Minesweeper.Core.Cells.States;
@@ -8,21 +7,21 @@ namespace Minesweeper.Core.Games;
 
 public sealed class Game
 {
-    private readonly IEnumerable<Cell> _board;
+    private readonly IEnumerable<Cell> _cells;
     private readonly IPrintable _printable;
 
     public Game(IEnumerable<Cell> cells, IPrintable printable)
     {
         _printable = printable;
-        _board = cells;
+        _cells = cells;
     }
 
     public bool TryOpenCell(ICoordinate coordinate)
     {
-        var exists = _board.Any(c => c.InCoordinate(coordinate));
+        var exists = _cells.Any(c => c.InCoordinate(coordinate));
         if (exists)
         {
-            var cell = _board.Single(c => c.InCoordinate(coordinate));
+            var cell = _cells.Single(c => c.InCoordinate(coordinate));
             cell.TransitionTo(new OpenState());
         }
 
