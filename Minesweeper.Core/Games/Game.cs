@@ -59,10 +59,3 @@ public sealed class Game
         ChangeCell?.Invoke(this, e);
     }
 }
-
-public enum GameStatus
-{
-    Progress = 1,
-    GameOver,
-    Win
-}
