@@ -20,18 +20,17 @@ public sealed class CellGenerator : IGenerator
 
     public IEnumerable<Cell> Generate()
     {
-        GenerateBombCells();
-        GenerateSpaceAndNumberCells();
+        GenerateCells(_difficulty.CountOfBomb, CreateBombCellCell);
+        GenerateCells(_difficulty.Weight*_difficulty.Height - _difficulty.CountOfBomb, CreateNotBombCell);
 
         return _cells;
     }
 
-    private void GenerateBombCells()
+    private void GenerateCells(int count, Func<ICoordinate, ICellState, Cell> createCell)
     {
-        var bombContent = new BombContent();
-        var closeState = new CloseState();
-
-        for (var i = 0; i < _difficulty.CountOfBomb; i++)
+        var state = new CloseState();
+        
+        for (var i = 0; i < count; i++)
             while (true)
             {
                 var coordinate = GetRandomCoordinate(_difficulty.Weight, _difficulty.Height);
@@ -39,7 +38,7 @@ public sealed class CellGenerator : IGenerator
                 var exists = CheckExistsCell(coordinate);
                 if (exists) continue;
 
-                var cell = new Cell(coordinate, closeState, bombContent);
+                var cell = createCell(coordinate, state);
 
                 _cells.Add(cell);
 
@@ -47,30 +46,21 @@ public sealed class CellGenerator : IGenerator
             }
     }
 
-    private void GenerateSpaceAndNumberCells()
+    private static Cell CreateBombCellCell(ICoordinate coordinate, ICellState state)
     {
-        var spaceContent = new SpaceContent();
-        var closeState = new CloseState();
-
-        for (var i = 0; i < _difficulty.Weight * _difficulty.Height - _difficulty.CountOfBomb; i++)
-            while (true)
-            {
-                var coordinate = GetRandomCoordinate(_difficulty.Weight, _difficulty.Height);
-
-                var exists = CheckExistsCell(coordinate);
-                if (exists) continue;
-
-                var countOfBombAround = GetCountOfBombAround(coordinate);
-                IHasValue content = countOfBombAround != 0
-                    ? new NumberContent(countOfBombAround)
-                    : spaceContent;
-
-                var cell = new Cell(coordinate, closeState, content);
-
-                _cells.Add(cell);
-
-                break;
-            }
+        var bombContent = new BombContent();
+        
+        return new Cell(coordinate, state, bombContent);
+    }
+    
+    private Cell CreateNotBombCell(ICoordinate coordinate, ICellState state)
+    {
+        var countOfBombAround = GetCountOfBombAround(coordinate);
+        IHasValue content = countOfBombAround != 0
+            ? new NumberContent(countOfBombAround)
+            : new SpaceContent();
+        
+        return new Cell(coordinate, state, content);
     }
 
     private static ICoordinate GetRandomCoordinate(int weight, int height)

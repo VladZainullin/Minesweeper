@@ -47,12 +47,12 @@ public sealed class Board : IEnumerable<Cell>
 
     private int GetWeight()
     {
-        return _cells.GroupBy(c => c.X).Count() - 1;
+        return _cells.GroupBy(c => c.X).Count();
     }
 
     private int GetHeight()
     {
-        return _cells.GroupBy(c => c.Y).Count() - 1;
+        return _cells.GroupBy(c => c.Y).Count();
     }
 
     private Cell GetCell(int x, int y)
