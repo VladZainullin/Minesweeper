@@ -23,7 +23,7 @@ internal static class Program
         var printer = new ConsolePrinter(board);
         var game = new Game(board, printer);
 
-        while (true)
+        while (game.InProgress())
         {
             game.Print();
 
@@ -33,6 +33,8 @@ internal static class Program
 
             game.TryOpenCell(coordinate, state);
         }
+
+        Console.WriteLine("You ara win!");
     }
 
     private static IReadOnlyList<IDifficulty> GetDifficulties()
@@ -97,7 +99,7 @@ internal static class Program
             }
 
             var stateShortTitle = tuple?.Split().Last();
-            if (stateShortTitle == null)
+            if (stateShortTitle != "o" && stateShortTitle != "m")
             {
                 continue;
             }
@@ -113,7 +115,6 @@ internal static class Program
         {
             "o" => new OpenState(),
             "m" => new MarkState(),
-            _ => throw new ArgumentOutOfRangeException(nameof(shortTitle), shortTitle, null)
         };
     }
 }

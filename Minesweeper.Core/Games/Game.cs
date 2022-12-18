@@ -1,4 +1,5 @@
 using Minesweeper.Core.Cells;
+using Minesweeper.Core.Cells.Contents;
 using Minesweeper.Core.Cells.Coordinates;
 using Minesweeper.Core.Cells.States;
 using Minesweeper.Core.Games.Printers;
@@ -26,6 +27,15 @@ public sealed class Game
         }
 
         return exists;
+    }
+
+    public bool InProgress()
+    {
+        var r = _cells
+            .Where(c => c.ContentIs<BombContent>())
+            .All(c => c.StateIs<MarkState>());
+
+        return r;
     }
 
     public void Print()

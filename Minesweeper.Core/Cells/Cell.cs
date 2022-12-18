@@ -29,9 +29,14 @@ public sealed class Cell
         _state = content;
     }
 
-    public bool ContentIs<T>()
+    public bool ContentIs<T>() where T : IHasValue
     {
         return _content is T;
+    }
+    
+    public bool StateIs<T>() where T : ICellState
+    {
+        return _state is T;
     }
 
     public bool InCoordinate(ICoordinate coordinate)
