@@ -10,7 +10,7 @@ public sealed class CellGenerator : IGenerator
 {
     private static readonly Random Random = new();
 
-    private readonly IList<Cell> _cells = new List<Cell>(100);
+    private readonly ICollection<Cell> _cells = new List<Cell>(100);
     private readonly IDifficulty _difficulty;
 
     public CellGenerator(IDifficulty difficulty)
