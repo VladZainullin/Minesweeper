@@ -1,19 +1,14 @@
-using Minesweeper.Core.Boards;
-using Minesweeper.Core.Cells;
-
 namespace Minesweeper.Core.Games.Printers;
 
-public class ConsolePrinter : IPrintable
+public class ConsolePrinter
 {
-    private readonly IEnumerable<Cell> _board;
-
-    public ConsolePrinter(IEnumerable<Cell> board)
+    public ConsolePrinter(Game game)
     {
-        _board = board;
+        game.OpenCell += Print;
     }
 
-    public void Print()
+    private static void Print(object? sender, CellOpenEventArgs e)
     {
-        Console.WriteLine(_board.ToString());
+        Console.WriteLine(e.Cells.ToString());
     }
 }

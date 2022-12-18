@@ -2,20 +2,19 @@ using Minesweeper.Core.Cells;
 using Minesweeper.Core.Cells.Contents;
 using Minesweeper.Core.Cells.Coordinates;
 using Minesweeper.Core.Cells.States;
-using Minesweeper.Core.Games.Printers;
 
 namespace Minesweeper.Core.Games;
 
 public sealed class Game
 {
     private readonly IEnumerable<Cell> _cells;
-    private readonly IPrintable _printable;
 
-    public Game(IEnumerable<Cell> cells, IPrintable printable)
+    public Game(IEnumerable<Cell> cells)
     {
-        _printable = printable;
         _cells = cells;
     }
+
+    public event EventHandler<CellOpenEventArgs>? OpenCell; 
 
     public bool TryOpenCell(ICoordinate coordinate, ICellState state)
     {
@@ -24,6 +23,7 @@ public sealed class Game
         {
             var cell = _cells.Single(c => c.InCoordinate(coordinate));
             cell.TransitionTo(state);
+            OnOpenCell(new CellOpenEventArgs(_cells));
         }
 
         return exists;
@@ -42,8 +42,10 @@ public sealed class Game
         return !allBombMark && allBombNotOpen;
     }
 
-    public void Print()
+    private void OnOpenCell(CellOpenEventArgs e)
     {
-        _printable.Print();
+        OpenCell?.Invoke(this, e);
     }
 }
+
+public record CellOpenEventArgs(IEnumerable<Cell> Cells);

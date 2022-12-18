@@ -19,22 +19,18 @@ internal static class Program
 
         var cells = generator.Generate();
         var board = new Board(cells);
-
-        var printer = new ConsolePrinter(board);
-        var game = new Game(board, printer);
+        
+        var game = new Game(board);
+        var printer = new ConsolePrinter(game);
 
         while (game.InProgress())
         {
-            game.Print();
-
             var (x, y, state) = InputData();
 
             var coordinate = new Coordinate(x, y);
 
             game.TryOpenCell(coordinate, state);
         }
-        
-        game.Print();
 
         Console.WriteLine("You are win!");
     }
