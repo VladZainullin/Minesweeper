@@ -9,16 +9,15 @@ namespace Minesweeper.Core.CellGenerators;
 
 public sealed class CellGenerator : IGenerator
 {
+    private static readonly Random Random = new();
+
+    private readonly List<Cell> _cells = new();
     private readonly IDifficulty _difficulty;
 
     public CellGenerator(IDifficulty difficulty)
     {
         _difficulty = difficulty;
     }
-    
-    private static readonly Random Random = new();
-    
-    private readonly List<Cell> _cells = new();
 
     public IEnumerable<Cell> Generate()
     {
@@ -34,42 +33,33 @@ public sealed class CellGenerator : IGenerator
         var closeState = new CloseState();
 
         for (var i = 0; i < _difficulty.CountOfBomb - 1; i++)
-        {
             while (true)
             {
                 var coordinate = GetRandomCoordinate(_difficulty.Weight, _difficulty.Height);
 
                 var exists = CheckExistsCell(coordinate);
-                if (exists)
-                {
-                    continue;
-                }
+                if (exists) continue;
 
                 var cell = new Cell(coordinate, closeState, bombContent);
-                
+
                 _cells.Add(cell);
-                
+
                 break;
             }
-        }
     }
-    
+
     private void GenerateSpaceAndNumberCells()
     {
         var spaceContent = new SpaceContent();
         var closeState = new CloseState();
 
         for (var i = 0; i < _difficulty.Weight * _difficulty.Height - _difficulty.CountOfBomb - 1; i++)
-        {
             while (true)
             {
                 var coordinate = GetRandomCoordinate(_difficulty.Weight, _difficulty.Height);
 
                 var exists = CheckExistsCell(coordinate);
-                if (exists)
-                {
-                    continue;
-                }
+                if (exists) continue;
 
                 var countOfBombAround = GetCountOfBombAround(coordinate);
                 IHasValue content = countOfBombAround != 0
@@ -77,12 +67,11 @@ public sealed class CellGenerator : IGenerator
                     : spaceContent;
 
                 var cell = new Cell(coordinate, closeState, content);
-                
+
                 _cells.Add(cell);
-                
+
                 break;
             }
-        }
     }
 
     private static ICoordinate GetRandomCoordinate(int weight, int height)

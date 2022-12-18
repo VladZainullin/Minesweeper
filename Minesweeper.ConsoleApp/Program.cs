@@ -15,13 +15,13 @@ internal static class Program
         var selectableDifficulty = SelectDifficulty(difficulties);
 
         var generator = new CellGenerator(selectableDifficulty);
-        
+
         var cells = generator.Generate();
         var board = new Board(cells);
-        
+
         var printer = new ConsolePrinter(board);
         var game = new Game(board, printer);
-        
+
         while (true)
         {
             game.Print();
@@ -34,7 +34,7 @@ internal static class Program
             if (game.TryOpenCell(coordinate)) continue;
         }
     }
-    
+
     private static IReadOnlyList<IDifficulty> GetDifficulties()
     {
         return new IDifficulty[]
@@ -44,7 +44,7 @@ internal static class Program
             new HardDifficulty()
         };
     }
-    
+
     private static IDifficulty SelectDifficulty(
         IReadOnlyList<IDifficulty> difficulties)
     {
@@ -71,7 +71,7 @@ internal static class Program
         while (true)
         {
             Console.Write(beforeMessage);
-            if (int.TryParse(System.Console.ReadLine(), out var result) && result >= 0) return result;
+            if (int.TryParse(Console.ReadLine(), out var result) && result >= 0) return result;
 
             Console.WriteLine(errorMessage);
         }
