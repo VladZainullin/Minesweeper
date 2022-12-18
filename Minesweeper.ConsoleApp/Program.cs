@@ -23,7 +23,7 @@ internal static class Program
         var game = new Game(board);
         _ = new ConsolePrinter(game);
 
-        while (game.InProgress())
+        while (game.Status == GameStatus.Progress)
         {
             var (x, y, state) = InputData();
 
@@ -32,7 +32,13 @@ internal static class Program
             game.TryOpenCell(coordinate, state);
         }
 
-        Console.WriteLine("You are win!");
+        if (game.Status == GameStatus.GameOver)
+        {
+            Console.WriteLine("Game over");
+            return;
+        }
+
+        Console.WriteLine("You are win");
     }
 
     private static IReadOnlyList<IDifficulty> GetDifficulties()

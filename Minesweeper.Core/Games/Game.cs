@@ -16,6 +16,37 @@ public sealed class Game
 
     public event EventHandler<CellOpenEventArgs>? ChangeCell;
 
+    public GameStatus Status
+    {
+        get
+        {
+            var allBombMark = CheckAllBombMark();
+
+            var allBombClose = CheckAllBombClose();
+
+            return (allBombMark, allBombClose) switch
+            {
+                (false, true) => GameStatus.Progress,
+                (_, false) => GameStatus.GameOver,
+                (true, true) => GameStatus.Win
+            };
+        }
+    }
+
+    private bool CheckAllBombMark()
+    {
+        return _cells
+            .Where(c => c.ContentIs<BombContent>())
+            .All(c => c.StateIs<MarkState>());
+    }
+    
+    private bool CheckAllBombClose()
+    {
+        return _cells
+            .Where(c => c.ContentIs<BombContent>())
+            .All(c => !c.StateIs<OpenState>());
+    }
+
     public bool TryOpenCell(ICoordinate coordinate, ICellState state)
     {
         var exists = _cells.Any(c => c.InCoordinate(coordinate));
@@ -29,21 +60,15 @@ public sealed class Game
         return exists;
     }
 
-    public bool InProgress()
-    {
-        var allBombMark = _cells
-            .Where(c => c.ContentIs<BombContent>())
-            .All(c => c.StateIs<MarkState>());
-
-        var allBombNotOpen = _cells
-            .Where(c => c.ContentIs<BombContent>())
-            .All(c => !c.StateIs<OpenState>());
-
-        return !allBombMark && allBombNotOpen;
-    }
-
     private void OnOpenCell(CellOpenEventArgs e)
     {
         ChangeCell?.Invoke(this, e);
     }
+}
+
+public enum GameStatus
+{
+    Progress = 1,
+    GameOver,
+    Win
 }
